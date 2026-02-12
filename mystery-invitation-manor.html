@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You Are Cordially Summoned</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Wood tones */
+      --mahogany-dark: #2a1810;
+      --mahogany: #4a2c2a;
+      --walnut: #5d4037;
+      --oak: #8b7355;
+      
+      /* Velvet & fabric */
+      --burgundy-deep: #4a1c1c;
+      --burgundy: #722f37;
+      --velvet-red: #8b3a3a;
+      
+      /* Metal accents */
+      --brass: #b8860b;
+      --brass-light: #d4a84b;
+      --brass-pale: #e8d4a8;
+      --antique-gold: #c9a227;
+      
+      /* Paper & light */
+      --parchment: #f4e9d9;
+      --cream: #faf6f0;
+      --candlelight: #fff8e7;
+      --warm-white: #fffef9;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--mahogany-dark);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Wood paneling background */
+    .manor-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: 
+        /* Wood grain texture overlay */
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          transparent 30px,
+          rgba(0,0,0,0.03) 30px,
+          rgba(0,0,0,0.03) 31px
+        ),
+        /* Vertical panel divisions */
+        repeating-linear-gradient(
+          90deg,
+          var(--mahogany-dark) 0px,
+          var(--mahogany) 2px,
+          var(--mahogany-dark) 4px,
+          #1a0f0a 150px,
+          var(--mahogany-dark) 152px,
+          var(--mahogany) 154px,
+          var(--mahogany-dark) 156px
+        ),
+        /* Base color gradient */
+        linear-gradient(180deg, #1a0f0a 0%, var(--mahogany-dark) 30%, #1f1410 100%);
+    }
+
+    /* Warm ambient glow - like firelight/chandelier */
+    .warm-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background: 
+        radial-gradient(ellipse at 50% -20%, rgba(255, 200, 100, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(180, 100, 50, 0.05) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 70%, rgba(180, 100, 50, 0.04) 0%, transparent 35%);
+    }
+
+    /* Subtle vignette */
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
+    }
+
+    /* Main container */
+    .container {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* The invitation card - like a letter on parchment */
+    .invitation {
+      position: relative;
+      background: linear-gradient(170deg, var(--parchment) 0%, #ebe3d3 50%, var(--parchment) 100%);
+      max-width: 500px;
+      width: 100%;
+      padding: 2.5rem 2.5rem;
+      color: var(--mahogany-dark);
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.4),
+        0 15px 40px rgba(0, 0, 0, 0.3),
+        inset 0 0 80px rgba(139, 115, 85, 0.1);
+    }
+
+    /* Aged paper texture */
+    .invitation::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    /* Decorative border - like gilded frame */
+    .invitation::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      border: 1px solid var(--brass);
+      pointer-events: none;
+    }
+
+    /* Inner border detail */
+    .border-inner {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      border: 1px solid rgba(184, 134, 11, 0.4);
+      pointer-events: none;
+    }
+
+    /* Corner flourishes */
+    .corner-flourish {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      opacity: 0.7;
+    }
+
+    .corner-flourish svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .corner-flourish.tl { top: 8px; left: 8px; }
+    .corner-flourish.tr { top: 8px; right: 8px; transform: scaleX(-1); }
+    .corner-flourish.bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+    .corner-flourish.br { bottom: 8px; right: 8px; transform: scale(-1); }
+
+    /* Content wrapper */
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    /* Wax seal */
+    .seal {
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 1.25rem;
+      background: radial-gradient(circle at 35% 35%, #a02020, var(--burgundy-deep) 60%, #2a0a0a);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 3px 10px rgba(0,0,0,0.4),
+        inset 0 2px 4px rgba(255,255,255,0.15),
+        inset 0 -3px 6px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .seal::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border: 1px solid rgba(255, 200, 150, 0.2);
+      border-radius: 50%;
+    }
+
+    .seal-letter {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.6rem;
+      color: var(--brass-pale);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* Typography */
+    h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 400;
+      font-size: 1.4rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mahogany-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .estate-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--walnut);
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    /* Ornamental divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0;
+      gap: 0.75rem;
+    }
+
+    .divider-line {
+      width: 50px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--brass), transparent);
+    }
+
+    .divider-ornament {
+      color: var(--brass);
+      font-size: 1rem;
+    }
+
+    /* Body text */
+    .prose {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #3d2b24;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Form styling */
+    .code-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--walnut);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .code-input {
+      width: 100%;
+      max-width: 280px;
+      padding: 0.75rem 1rem;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid var(--oak);
+      color: var(--mahogany-dark);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .code-input::placeholder {
+      color: #a99780;
+      font-style: italic;
+    }
+
+    .code-input:focus {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: var(--brass);
+      box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.2);
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      max-width: 280px;
+      margin: 1rem auto 0;
+      padding: 0.7rem 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--burgundy);
+      border: none;
+      color: var(--cream);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .submit-btn:hover {
+      background: var(--burgundy-deep);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .error-message {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #8b3a3a;
+      margin-top: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .error-message.visible {
+      opacity: 1;
+    }
+
+    /* Reveal page styles */
+    .reveal-page {
+      display: none;
+    }
+
+    .reveal-page.active {
+      display: block;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .character-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--mahogany-dark);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.2rem;
+    }
+
+    .character-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--walnut);
+      margin-bottom: 1.25rem;
+    }
+
+    .backstory {
+      font-family: 'EB Garamond', serif;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #3d2b24;
+      text-align: left;
+      padding: 1rem 1.25rem;
+      background: rgba(139, 115, 85, 0.08);
+      border-left: 3px solid var(--burgundy);
+      margin-bottom: 1.25rem;
+    }
+
+    .event-details {
+      text-align: left;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(139, 115, 85, 0.3);
+      border-bottom: 1px solid rgba(139, 115, 85, 0.3);
+      margin-bottom: 1.25rem;
+    }
+
+    .detail-row {
+      display: flex;
+      padding: 0.35rem 0;
+    }
+
+    .detail-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .detail-value {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.95rem;
+      color: #3d2b24;
+    }
+
+    .rsvp-section {
+      margin-top: 1.25rem;
+      text-align: center;
+    }
+
+    .rsvp-deadline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--walnut);
+      margin-bottom: 0.75rem;
+    }
+
+    .rsvp-buttons {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    .rsvp-btn {
+      padding: 0.6rem 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid var(--burgundy);
+      color: var(--burgundy);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .rsvp-btn:hover {
+      background: var(--burgundy);
+      color: var(--cream);
+    }
+
+    .rsvp-confirmed {
+      display: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--burgundy);
+      margin-top: 0.75rem;
+    }
+
+    .confidential {
+      margin-top: 1.25rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--oak);
+    }
+
+    /* Velvet curtain effect on sides */
+    .curtain {
+      position: fixed;
+      top: 0;
+      width: 80px;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .curtain-left {
+      left: 0;
+      background: linear-gradient(90deg, 
+        var(--burgundy-deep) 0%, 
+        rgba(114, 47, 55, 0.8) 30%,
+        rgba(114, 47, 55, 0.4) 60%,
+        transparent 100%
+      );
+    }
+
+    .curtain-right {
+      right: 0;
+      background: linear-gradient(-90deg, 
+        var(--burgundy-deep) 0%, 
+        rgba(114, 47, 55, 0.8) 30%,
+        rgba(114, 47, 55, 0.4) 60%,
+        transparent 100%
+      );
+    }
+
+    /* Curtain drape texture */
+    .curtain::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        180deg,
+        transparent 0px,
+        rgba(0, 0, 0, 0.1) 2px,
+        transparent 4px,
+        transparent 20px
+      );
+    }
+
+    /* Responsive */
+    @media (max-width: 560px) {
+      .invitation {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.2rem;
+      }
+
+      .curtain {
+        width: 30px;
+      }
+
+      .rsvp-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .rsvp-btn {
+        width: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="manor-bg"></div>
+  <div class="warm-glow"></div>
+  <div class="vignette"></div>
+  
+  <div class="curtain curtain-left"></div>
+  <div class="curtain curtain-right"></div>
+
+  <div class="container">
+    <div class="invitation">
+      <div class="border-inner"></div>
+      
+      <!-- Corner flourishes -->
+      <div class="corner-flourish tl">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 Q20 0 20 20 Q20 10 10 10 Q10 20 0 20 Z" fill="#b8860b" opacity="0.6"/>
+          <path d="M5 5 Q15 5 15 15" stroke="#b8860b" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="corner-flourish tr">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 Q20 0 20 20 Q20 10 10 10 Q10 20 0 20 Z" fill="#b8860b" opacity="0.6"/>
+          <path d="M5 5 Q15 5 15 15" stroke="#b8860b" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="corner-flourish bl">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 Q20 0 20 20 Q20 10 10 10 Q10 20 0 20 Z" fill="#b8860b" opacity="0.6"/>
+          <path d="M5 5 Q15 5 15 15" stroke="#b8860b" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="corner-flourish br">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 Q20 0 20 20 Q20 10 10 10 Q10 20 0 20 Z" fill="#b8860b" opacity="0.6"/>
+          <path d="M5 5 Q15 5 15 15" stroke="#b8860b" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="content">
+        <!-- Entry Page -->
+        <div id="entry-page">
+          <div class="seal">
+            <span class="seal-letter">M</span>
+          </div>
+
+          <h1>You Are Summoned</h1>
+          <p class="estate-name">to Thornwood Manor</p>
+
+          <div class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-ornament">❧</span>
+            <span class="divider-line"></span>
+          </div>
+
+          <p class="prose">
+            A matter requiring your presence has arisen.<br>
+            If you have received this invitation, you hold a word<br>
+            that will reveal your purpose here.
+          </p>
+
+          <form id="code-form">
+            <label class="code-label">Enter your word of passage</label>
+            <input 
+              type="text" 
+              class="code-input" 
+              id="code-input" 
+              placeholder="Your code word"
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button type="submit" class="submit-btn">Enter the Manor</button>
+            <p class="error-message" id="error-message">
+              That word grants no passage here.
+            </p>
+          </form>
+        </div>
+
+        <!-- Reveal Page -->
+        <div id="reveal-page" class="reveal-page">
+          <div class="seal">
+            <span class="seal-letter" id="monogram">B</span>
+          </div>
+
+          <h1>Your Presence is Required</h1>
+          
+          <div class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-ornament">❧</span>
+            <span class="divider-line"></span>
+          </div>
+
+          <p class="character-name" id="character-name">Colonel Ashford Blackwood</p>
+          <p class="character-title" id="character-title">Retired Military Officer & Collector of Antiquities</p>
+
+          <div class="backstory" id="backstory">
+            A decorated veteran of the Great War, you returned from the Continent with a fortune in acquired antiquities and a reputation that precedes you into every drawing room. Your connections stretch from the highest circles of society to places polite company never mentions. Some say not all your medals were earned on the battlefield.
+          </div>
+
+          <div class="event-details">
+            <div class="detail-row">
+              <span class="detail-label">When</span>
+              <span class="detail-value">November 6th – 8th, 1926</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Where</span>
+              <span class="detail-value">Thornwood Manor (location upon confirmation)</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Attire</span>
+              <span class="detail-value">Evening formal; dress warmly for country air</span>
+            </div>
+          </div>
+
+          <div class="rsvp-section">
+            <p class="rsvp-deadline">Kindly respond by October 18th</p>
+            <div class="rsvp-buttons" id="rsvp-buttons">
+              <button class="rsvp-btn" onclick="rsvp('accept')">I Shall Attend</button>
+              <button class="rsvp-btn" onclick="rsvp('decline')">I Must Regret</button>
+            </div>
+            <p class="rsvp-confirmed" id="rsvp-confirmed"></p>
+          </div>
+
+          <p class="confidential">Your discretion in this matter is expected.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Character database - customize with your guests
+      const characters = {
+        'blackwood': {
+          name: 'Colonel Ashford Blackwood',
+          title: 'Retired Military Officer & Collector of Antiquities',
+          backstory: 'A decorated veteran of the Great War, you returned from the Continent with a fortune in acquired antiquities and a reputation that precedes you into every drawing room. Your connections stretch from the highest circles of society to places polite company never mentions. Some say not all your medals were earned on the battlefield.',
+          initial: 'B'
+        },
+        'sinclair': {
+          name: 'Lady Vivienne Sinclair',
+          title: 'Widow & Society Hostess',
+          backstory: 'Your country house weekends are the stuff of legend—invitations more coveted than a seat at the King\'s table. Born into old money, you\'ve managed your inheritance with an acumen that surprises those who underestimate you. Your husband\'s sudden death last spring raised eyebrows in certain circles. The coroner ruled it an accident. Not everyone agrees.',
+          initial: 'S'
+        },
+        'crane': {
+          name: 'Dr. Mortimer Crane',
+          title: 'Physician & Research Fellow',
+          backstory: 'Your Harley Street practice serves only the most distinguished families, and your discretion has made you privy to secrets that could topple dynasties. Your interest in experimental treatments from Vienna has raised eyebrows at the Royal College. Some patients recover miraculously under your care. Others simply... don\'t recover at all.',
+          initial: 'C'
+        },
+        'ashworth': {
+          name: 'Lord Theodore Ashworth',
+          title: 'Industrialist & Railway Director',
+          backstory: 'You built your empire on coal and steel, surviving crashes that ruined lesser men. Your competitors whisper about your methods; your workers know better than to whisper at all. The recent troubles at your Yorkshire mills have made you enemies in unexpected places. There are those who say you\'d do anything to protect what you\'ve built.',
+          initial: 'A'
+        },
+        'fontaine': {
+          name: 'Mademoiselle Margaux Fontaine',
+          title: 'Concert Pianist & Former Actress',
+          backstory: 'Your performances at Covent Garden once had London at your feet, and your beauty graced every society page. The war sent you to Paris, where you did things for the Foreign Office that remain classified. Now you perform only at private gatherings, for audiences who understand your particular talents extend well beyond the keyboard.',
+          initial: 'F'
+        },
+        'pemberton': {
+          name: 'The Reverend Charles Pemberton',
+          title: 'Vicar & Keeper of Confessions',
+          backstory: 'Your parish includes the oldest families in the county. They trust you with their darkest confessions—the weight of what you know could end marriages, careers, perhaps even lives. Your faith demands silence. But everyone has their price, and someone has recently discovered yours.',
+          initial: 'P'
+        }
+      };
+
+      const form = document.getElementById('code-form');
+      const codeInput = document.getElementById('code-input');
+      const errorMessage = document.getElementById('error-message');
+      const entryPage = document.getElementById('entry-page');
+      const revealPage = document.getElementById('reveal-page');
+
+      function showCharacter(character) {
+        document.getElementById('character-name').textContent = character.name;
+        document.getElementById('character-title').textContent = character.title;
+        document.getElementById('backstory').textContent = character.backstory;
+        document.getElementById('monogram').textContent = character.initial;
+        
+        entryPage.style.display = 'none';
+        revealPage.classList.add('active');
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const code = codeInput.value.toLowerCase().trim();
+        
+        if (characters[code]) {
+          showCharacter(characters[code]);
+        } else {
+          errorMessage.classList.add('visible');
+          codeInput.value = '';
+          codeInput.focus();
+        }
+      });
+
+      codeInput.addEventListener('input', function() {
+        errorMessage.classList.remove('visible');
+      });
+
+      // Make rsvp function globally available
+      window.rsvp = function(response) {
+        const buttons = document.getElementById('rsvp-buttons');
+        const confirmed = document.getElementById('rsvp-confirmed');
+        
+        buttons.style.display = 'none';
+        
+        if (response === 'accept') {
+          confirmed.textContent = 'Your acceptance has been noted. A motor car shall collect you at the appointed hour.';
+        } else {
+          confirmed.textContent = 'A pity. Your absence will be... noted.';
+        }
+        
+        confirmed.style.display = 'block';
+        
+        // In production, send this to your backend
+        console.log('RSVP:', response);
+      };
+    });
+  </script>
+</body>
+</html>
