@@ -3,792 +3,791 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>You Are Cordially Summoned</title>
+  <title>You Have Been Summoned</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Wood tones */
-      --mahogany-dark: #2a1810;
-      --mahogany: #4a2c2a;
-      --walnut: #5d4037;
-      --oak: #8b7355;
-      
-      /* Velvet & fabric */
-      --burgundy-deep: #4a1c1c;
-      --burgundy: #722f37;
-      --velvet-red: #8b3a3a;
-      
-      /* Metal accents */
-      --brass: #b8860b;
-      --brass-light: #d4a84b;
-      --brass-pale: #e8d4a8;
-      --antique-gold: #c9a227;
-      
-      /* Paper & light */
-      --parchment: #f4e9d9;
-      --cream: #faf6f0;
-      --candlelight: #fff8e7;
-      --warm-white: #fffef9;
+      --desk: #1a1a1a;
+      --desk-light: #2a2a2a;
+      --leather: #0e0e0e;
+      --paper: #f5f5f5;
+      --paper-mid: #e0e0e0;
+      --paper-dark: #cccccc;
+      --paper-edge: #b0b0b0;
+      --ink: #111111;
+      --ink-mid: #333333;
+      --ink-light: #555555;
+      --ink-faint: #888888;
+      --burgundy: #333333;
+      --burgundy-light: #555555;
+      --gold-ink: #444444;
+      --gold-accent: #666666;
+      --seal-red: #333333;
+      --seal-light: #555555;
+      --seal-dark: #1a1a1a;
+      --seal-darkest: #0a0a0a;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'EB Garamond', Georgia, serif;
-      background: var(--mahogany-dark);
-      color: var(--cream);
+      font-family: 'EB Garamond', serif;
+      background: var(--leather);
+      color: var(--ink);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Wood paneling background */
-    .manor-bg {
+    /* ── Rich desk surface background ── */
+    .desk-bg {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       z-index: 0;
-      background: 
-        /* Wood grain texture overlay */
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(40,40,40,0.6) 0%, transparent 70%),
         repeating-linear-gradient(
-          90deg,
+          185deg,
           transparent 0px,
-          transparent 30px,
-          rgba(0,0,0,0.03) 30px,
-          rgba(0,0,0,0.03) 31px
+          rgba(40,40,40,0.06) 1px,
+          transparent 2px,
+          transparent 10px
         ),
-        /* Vertical panel divisions */
-        repeating-linear-gradient(
-          90deg,
-          var(--mahogany-dark) 0px,
-          var(--mahogany) 2px,
-          var(--mahogany-dark) 4px,
-          #1a0f0a 150px,
-          var(--mahogany-dark) 152px,
-          var(--mahogany) 154px,
-          var(--mahogany-dark) 156px
-        ),
-        /* Base color gradient */
-        linear-gradient(180deg, #1a0f0a 0%, var(--mahogany-dark) 30%, #1f1410 100%);
+        linear-gradient(
+          160deg,
+          #0e0e0e 0%,
+          #1a1a1a 30%,
+          #2a2a2a 50%,
+          #1a1a1a 70%,
+          #0e0e0e 100%
+        );
     }
 
-    /* Warm ambient glow - like firelight/chandelier */
-    .warm-glow {
+    /* ── Warm ambient light ── */
+    .ambient {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+      border-radius: 50%;
       pointer-events: none;
-      background: 
-        radial-gradient(ellipse at 50% -20%, rgba(255, 200, 100, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 20% 80%, rgba(180, 100, 50, 0.05) 0%, transparent 40%),
-        radial-gradient(ellipse at 80% 70%, rgba(180, 100, 50, 0.04) 0%, transparent 35%);
+      z-index: 1;
+      filter: blur(100px);
+    }
+    .ambient-1 {
+      top: -10%;
+      left: 30%;
+      width: 500px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      animation: glow1 6s ease-in-out infinite;
+    }
+    .ambient-2 {
+      bottom: -5%;
+      right: 20%;
+      width: 400px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+      animation: glow2 8s ease-in-out infinite;
     }
 
-    /* Subtle vignette */
+    @keyframes glow1 {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    @keyframes glow2 {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* ── Soft vignette ── */
     .vignette {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       z-index: 2;
       pointer-events: none;
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0.8) 100%);
     }
 
-    /* Main container */
+    /* ── Main container ── */
     .container {
       position: relative;
       z-index: 10;
-      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      min-height: 100vh;
       padding: 2rem;
     }
 
-    /* The invitation card - like a letter on parchment */
-    .invitation {
+    /* ── The letter itself ── */
+    .letter {
       position: relative;
-      background: linear-gradient(170deg, var(--parchment) 0%, #ebe3d3 50%, var(--parchment) 100%);
-      max-width: 500px;
+      z-index: 10;
+      max-width: 640px;
       width: 100%;
-      padding: 2.5rem 2.5rem;
-      color: var(--mahogany-dark);
-      box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.4),
-        0 15px 40px rgba(0, 0, 0, 0.3),
-        inset 0 0 80px rgba(139, 115, 85, 0.1);
-    }
-
-    /* Aged paper texture */
-    .invitation::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
-      opacity: 0.03;
-      pointer-events: none;
-    }
-
-    /* Decorative border - like gilded frame */
-    .invitation::after {
-      content: '';
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
-      border: 1px solid var(--brass);
-      pointer-events: none;
-    }
-
-    /* Inner border detail */
-    .border-inner {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      border: 1px solid rgba(184, 134, 11, 0.4);
-      pointer-events: none;
-    }
-
-    /* Corner flourishes */
-    .corner-flourish {
-      position: absolute;
-      width: 35px;
-      height: 35px;
-      opacity: 0.7;
-    }
-
-    .corner-flourish svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .corner-flourish.tl { top: 8px; left: 8px; }
-    .corner-flourish.tr { top: 8px; right: 8px; transform: scaleX(-1); }
-    .corner-flourish.bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
-    .corner-flourish.br { bottom: 8px; right: 8px; transform: scale(-1); }
-
-    /* Content wrapper */
-    .content {
-      position: relative;
-      z-index: 1;
+      padding: 3.5rem 3rem;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"),
+        linear-gradient(175deg,
+          #fafafa 0%,
+          #f5f5f5 20%,
+          #f0f0f0 50%,
+          #ebebeb 80%,
+          #e0e0e0 100%
+        );
+      border: 1px solid var(--paper-edge);
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.08),
+        0 8px 30px rgba(0,0,0,0.15),
+        0 20px 60px rgba(0,0,0,0.2),
+        inset 0 0 60px rgba(255,255,255,0.15),
+        inset 0 0 0 1px rgba(255,255,255,0.1);
       text-align: center;
     }
 
-    /* Wax seal */
-    .seal {
-      width: 65px;
-      height: 65px;
-      margin: 0 auto 1.25rem;
-      background: radial-gradient(circle at 35% 35%, #a02020, var(--burgundy-deep) 60%, #2a0a0a);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 
-        0 3px 10px rgba(0,0,0,0.4),
-        inset 0 2px 4px rgba(255,255,255,0.15),
-        inset 0 -3px 6px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    .seal::before {
+    /* Subtle paper texture edge highlight */
+    .letter::before {
       content: '';
       position: absolute;
-      top: 6px;
-      left: 6px;
-      right: 6px;
-      bottom: 6px;
-      border: 1px solid rgba(255, 200, 150, 0.2);
-      border-radius: 50%;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.5) 50%, transparent 90%);
     }
 
-    .seal-letter {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 1.6rem;
-      color: var(--brass-pale);
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
-
-    /* Typography */
+    /* ── Typography ── */
     h1 {
-      font-family: 'Cinzel Decorative', serif;
+      font-family: 'Cinzel Decorative', 'Cinzel', serif;
       font-weight: 400;
-      font-size: 1.4rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--mahogany-dark);
-      margin-bottom: 0.25rem;
+      font-size: 2.1rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
     }
 
-    .estate-name {
-      font-family: 'Cormorant Garamond', serif;
+    .subtitle {
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1rem;
-      color: var(--walnut);
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
+      font-size: 1.15rem;
+      color: var(--ink-light);
+      margin-bottom: 1.5rem;
     }
 
-    /* Ornamental divider */
+    /* ── Ornamental divider ── */
     .divider {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 1rem 0;
-      gap: 0.75rem;
+      gap: 16px;
+      margin: 1.5rem auto;
+      max-width: 280px;
     }
-
-    .divider-line {
-      width: 50px;
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--brass), transparent);
+      background: linear-gradient(to var(--dir, right), var(--ink-light), transparent);
+      opacity: 0.3;
     }
-
+    .divider::before { --dir: right; }
+    .divider::after { --dir: left; }
     .divider-ornament {
-      color: var(--brass);
+      font-family: 'Cinzel Decorative', serif;
       font-size: 1rem;
+      color: var(--ink-light);
+      opacity: 0.4;
+      line-height: 1;
     }
 
-    /* Body text */
-    .prose {
+    /* ═══════════════════════════
+       WAX SEAL
+       ═══════════════════════════ */
+    .wax-seal-wrap {
+      margin: 0 auto 1.8rem;
+      width: 110px;
+      height: 110px;
+    }
+    .wax-seal-wrap svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.25)) drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+    }
+
+    /* ═══════════════════════════
+       PAGE 1 — SPLASH / PASSWORD
+       ═══════════════════════════ */
+    #entry-page {
+    }
+
+    #entry-page .prompt {
       font-family: 'EB Garamond', serif;
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: #3d2b24;
-      margin-bottom: 1.25rem;
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--ink-mid);
+      margin-bottom: 2rem;
     }
 
-    /* Form styling */
-    .code-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 0.95rem;
-      color: var(--walnut);
-      margin-bottom: 0.75rem;
-      display: block;
+    .input-group {
+      margin-bottom: 1.4rem;
     }
 
     .code-input {
       width: 100%;
-      max-width: 280px;
-      padding: 0.75rem 1rem;
-      font-family: 'EB Garamond', serif;
-      font-size: 1.15rem;
-      letter-spacing: 0.1em;
+      max-width: 320px;
+      padding: 0.85rem 1.2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
       text-align: center;
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid var(--oak);
-      color: var(--mahogany-dark);
+      text-transform: lowercase;
+      background: rgba(255,255,255,0.4);
+      border: none;
+      border-bottom: 1.5px solid var(--paper-edge);
+      color: var(--ink);
       outline: none;
-      transition: all 0.3s ease;
+      transition: border-color 0.3s, background 0.3s;
     }
-
     .code-input::placeholder {
-      color: #a99780;
+      color: var(--ink-faint);
+      font-family: 'EB Garamond', serif;
       font-style: italic;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
     }
-
     .code-input:focus {
-      background: rgba(255, 255, 255, 0.85);
-      border-color: var(--brass);
-      box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.2);
+      border-color: var(--ink-light);
+      background: rgba(255,255,255,0.6);
     }
 
     .submit-btn {
-      display: block;
-      width: 100%;
-      max-width: 280px;
-      margin: 1rem auto 0;
-      padding: 0.7rem 1.5rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.9rem;
-      font-weight: 500;
+      display: inline-block;
+      padding: 0.75rem 2.5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      background: var(--burgundy);
-      border: none;
-      color: var(--cream);
+      background: transparent;
+      border: 1px solid var(--ink-light);
+      color: var(--ink-mid);
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
-
     .submit-btn:hover {
-      background: var(--burgundy-deep);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
     }
 
-    .error-message {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 0.9rem;
-      color: #8b3a3a;
-      margin-top: 0.75rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .error-message.visible {
-      opacity: 1;
-    }
-
-    /* Reveal page styles */
-    .reveal-page {
+    .error-msg {
       display: none;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--burgundy);
+      margin-top: 1.2rem;
+      animation: fadeError 0.4s ease;
     }
-
-    .reveal-page.active {
-      display: block;
-      animation: fadeIn 0.8s ease;
-    }
-
-    @keyframes fadeIn {
+    @keyframes fadeError {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    .character-name {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: var(--mahogany-dark);
-      letter-spacing: 0.08em;
-      margin-bottom: 0.2rem;
-    }
-
-    .character-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 0.95rem;
-      color: var(--walnut);
-      margin-bottom: 1.25rem;
-    }
-
-    .backstory {
+    .footer-warning {
+      margin-top: 2.5rem;
       font-family: 'EB Garamond', serif;
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #3d2b24;
-      text-align: left;
-      padding: 1rem 1.25rem;
-      background: rgba(139, 115, 85, 0.08);
-      border-left: 3px solid var(--burgundy);
-      margin-bottom: 1.25rem;
-    }
-
-    .event-details {
-      text-align: left;
-      padding: 1rem 0;
-      border-top: 1px solid rgba(139, 115, 85, 0.3);
-      border-bottom: 1px solid rgba(139, 115, 85, 0.3);
-      margin-bottom: 1.25rem;
-    }
-
-    .detail-row {
-      display: flex;
-      padding: 0.35rem 0;
-    }
-
-    .detail-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
       font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--burgundy);
-      width: 80px;
-      flex-shrink: 0;
+      font-style: italic;
+      color: var(--ink-faint);
+      opacity: 0.5;
     }
 
-    .detail-value {
+    /* ═══════════════════════════
+       PAGE 2 — CHARACTER REVEAL
+       ═══════════════════════════ */
+    #reveal-page {
+      display: none;
+    }
+
+    .event-intro {
       font-family: 'EB Garamond', serif;
-      font-size: 0.95rem;
-      color: #3d2b24;
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: var(--ink-mid);
+      text-align: center;
+      margin-bottom: 1.8rem;
     }
 
-    .rsvp-section {
-      margin-top: 1.25rem;
+    .reveal-header {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-ink);
+      margin-bottom: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .char-name {
+      font-family: 'Cinzel Decorative', 'Cinzel', serif;
+      font-weight: 400;
+      font-size: 1.85rem;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .char-title {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--gold-ink);
+      margin-bottom: 1.8rem;
+    }
+
+    .char-backstory {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.06rem;
+      line-height: 1.85;
+      color: var(--ink-mid);
+      text-align: left;
+      margin-bottom: 2rem;
+      text-indent: 1.5em;
+    }
+
+    /* ── Event details ── */
+    .details-section {
+      margin: 2rem 0;
+      text-align: left;
+    }
+    .details-heading {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-ink);
+      opacity: 0.6;
+      margin-bottom: 1rem;
       text-align: center;
     }
 
-    .rsvp-deadline {
-      font-family: 'Cormorant Garamond', serif;
+    .details-table {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto 1.5rem;
+      border-collapse: collapse;
+    }
+    .details-table td {
+      padding: 0.55rem 0;
+      font-size: 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      vertical-align: top;
+    }
+    .details-table td:first-child {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      color: var(--gold-ink);
+      text-align: left;
+      padding-right: 1.5rem;
+      white-space: nowrap;
+      padding-top: 0.7rem;
+    }
+    .details-table td:last-child {
+      font-family: 'EB Garamond', serif;
+      text-align: right;
+      color: var(--ink-mid);
+    }
+
+    /* ── Secrecy notice ── */
+    .secrecy-notice {
+      margin: 2rem 0;
+      padding: 1.3rem 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.15);
+      border-bottom: 1px solid rgba(0,0,0,0.15);
+      background: rgba(0,0,0,0.03);
+    }
+    .secrecy-notice p {
+      font-family: 'EB Garamond', serif;
       font-style: italic;
       font-size: 0.95rem;
-      color: var(--walnut);
-      margin-bottom: 0.75rem;
+      line-height: 1.8;
+      color: var(--burgundy);
     }
 
+    /* ── RSVP ── */
+    .rsvp-section {
+      margin-top: 2.5rem;
+    }
+    .rsvp-section > p {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      margin-bottom: 1.2rem;
+    }
     .rsvp-buttons {
       display: flex;
-      gap: 0.75rem;
+      gap: 1rem;
       justify-content: center;
+      flex-wrap: wrap;
     }
-
     .rsvp-btn {
-      padding: 0.6rem 1.5rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      font-weight: 500;
+      padding: 0.75rem 1.8rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      font-weight: 600;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       background: transparent;
-      border: 1px solid var(--burgundy);
-      color: var(--burgundy);
       cursor: pointer;
       transition: all 0.3s ease;
     }
-
-    .rsvp-btn:hover {
-      background: var(--burgundy);
-      color: var(--cream);
+    .rsvp-btn.accept {
+      border: 1px solid var(--ink-light);
+      color: var(--ink-mid);
+    }
+    .rsvp-btn.accept:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+    .rsvp-btn.decline {
+      border: 1px solid rgba(0,0,0,0.2);
+      color: var(--ink-faint);
+    }
+    .rsvp-btn.decline:hover {
+      background: var(--ink-mid);
+      border-color: var(--ink-mid);
+      color: var(--paper);
     }
 
     .rsvp-confirmed {
       display: none;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      color: var(--burgundy);
-      margin-top: 0.75rem;
+      font-size: 1.05rem;
+      color: var(--gold-ink);
+      margin-top: 1rem;
     }
 
-    .confidential {
-      margin-top: 1.25rem;
-      font-family: 'Cormorant Garamond', serif;
+    .rsvp-already {
+      display: none;
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 0.85rem;
-      color: var(--oak);
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      line-height: 1.8;
     }
 
-    /* Velvet curtain effect on sides */
-    .curtain {
-      position: fixed;
-      top: 0;
-      width: 80px;
-      height: 100%;
-      z-index: 5;
-      pointer-events: none;
+    .rsvp-sending {
+      display: none;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink-faint);
     }
 
-    .curtain-left {
-      left: 0;
-      background: linear-gradient(90deg, 
-        var(--burgundy-deep) 0%, 
-        rgba(114, 47, 55, 0.8) 30%,
-        rgba(114, 47, 55, 0.4) 60%,
-        transparent 100%
-      );
+    /* ── Animations ── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .curtain-right {
-      right: 0;
-      background: linear-gradient(-90deg, 
-        var(--burgundy-deep) 0%, 
-        rgba(114, 47, 55, 0.8) 30%,
-        rgba(114, 47, 55, 0.4) 60%,
-        transparent 100%
-      );
+    .reveal-stagger > * {
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
     }
+    .reveal-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+    .reveal-stagger > *:nth-child(2) { animation-delay: 0.25s; }
+    .reveal-stagger > *:nth-child(3) { animation-delay: 0.4s; }
+    .reveal-stagger > *:nth-child(4) { animation-delay: 0.6s; }
+    .reveal-stagger > *:nth-child(5) { animation-delay: 0.75s; }
+    .reveal-stagger > *:nth-child(6) { animation-delay: 0.9s; }
+    .reveal-stagger > *:nth-child(7) { animation-delay: 1.05s; }
+    .reveal-stagger > *:nth-child(8) { animation-delay: 1.2s; }
+    .reveal-stagger > *:nth-child(9) { animation-delay: 1.35s; }
+    .reveal-stagger > *:nth-child(10) { animation-delay: 1.5s; }
+    .reveal-stagger > *:nth-child(11) { animation-delay: 1.65s; }
+    .reveal-stagger > *:nth-child(12) { animation-delay: 1.8s; }
+    .reveal-stagger > *:nth-child(13) { animation-delay: 1.95s; }
 
-    /* Curtain drape texture */
-    .curtain::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        180deg,
-        transparent 0px,
-        rgba(0, 0, 0, 0.1) 2px,
-        transparent 4px,
-        transparent 20px
-      );
-    }
-
-    /* Responsive */
-    @media (max-width: 560px) {
-      .invitation {
-        padding: 2rem 1.5rem;
-      }
-
-      h1 {
-        font-size: 1.2rem;
-      }
-
-      .curtain {
-        width: 30px;
-      }
-
-      .rsvp-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .rsvp-btn {
-        width: 160px;
-      }
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .letter { padding: 2.5rem 1.5rem; }
+      h1 { font-size: 1.55rem; }
+      .char-name { font-size: 1.4rem; }
+      .code-input { font-size: 0.95rem; max-width: 280px; }
+      .rsvp-buttons { flex-direction: column; align-items: center; }
+      .rsvp-btn { width: 100%; max-width: 260px; }
+      .details-table td:last-child { font-size: 0.95rem; }
+      .wax-seal-wrap { width: 90px; height: 90px; }
     }
   </style>
 </head>
 <body>
-  <div class="manor-bg"></div>
-  <div class="warm-glow"></div>
+
+  <!-- Background layers -->
+  <div class="desk-bg"></div>
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
   <div class="vignette"></div>
-  
-  <div class="curtain curtain-left"></div>
-  <div class="curtain curtain-right"></div>
 
   <div class="container">
-    <div class="invitation">
-      <div class="border-inner"></div>
-      
-      <!-- Corner flourishes -->
-      <div class="corner-flourish tl">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0 Q20 0 20 20 Q20 10 10 10 Q10 20 0 20 Z" fill="#b8860b" opacity="0.6"/>
-          <path d="M5 5 Q15 5 15 15" stroke="#b8860b" stroke-width="1" fill="none"/>
-        </svg>
-      </div>
-      <div class="corner-flourish tr">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0 Q20 0 20 20 Q20 10 10 10 Q10 20 0 20 Z" fill="#b8860b" opacity="0.6"/>
-          <path d="M5 5 Q15 5 15 15" stroke="#b8860b" stroke-width="1" fill="none"/>
-        </svg>
-      </div>
-      <div class="corner-flourish bl">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0 Q20 0 20 20 Q20 10 10 10 Q10 20 0 20 Z" fill="#b8860b" opacity="0.6"/>
-          <path d="M5 5 Q15 5 15 15" stroke="#b8860b" stroke-width="1" fill="none"/>
-        </svg>
-      </div>
-      <div class="corner-flourish br">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0 Q20 0 20 20 Q20 10 10 10 Q10 20 0 20 Z" fill="#b8860b" opacity="0.6"/>
-          <path d="M5 5 Q15 5 15 15" stroke="#b8860b" stroke-width="1" fill="none"/>
-        </svg>
-      </div>
+    <div class="letter">
 
-      <div class="content">
-        <!-- Entry Page -->
+        <!-- ═══ PAGE 1 — SPLASH ═══ -->
         <div id="entry-page">
-          <div class="seal">
-            <span class="seal-letter">M</span>
+
+          <!-- Wax seal -->
+          <div class="wax-seal-wrap">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="sealGrad" cx="42%" cy="38%" r="55%">
+                  <stop offset="0%" stop-color="#666666"/>
+                  <stop offset="30%" stop-color="#4a4a4a"/>
+                  <stop offset="65%" stop-color="#2a2a2a"/>
+                  <stop offset="100%" stop-color="#1a1a1a"/>
+                </radialGradient>
+                <radialGradient id="sealHighlight" cx="35%" cy="30%" r="40%">
+                  <stop offset="0%" stop-color="white" stop-opacity="0.12"/>
+                  <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <!-- Seal blob shape with organic edges -->
+              <path d="M100 8 C117 6, 130 13, 140 18 C150 23, 156 15, 167 22 C178 29, 184 40, 188 52 C192 64, 196 70, 193 82 C190 94, 195 104, 191 116 C187 128, 180 134, 174 144 C168 154, 173 163, 163 171 C153 179, 143 175, 131 181 C119 187, 113 195, 100 195 C87 195, 79 187, 67 181 C55 175, 47 179, 37 171 C27 163, 32 154, 26 144 C20 134, 13 128, 9 116 C5 104, 11 94, 7 82 C3 70, 9 64, 12 52 C16 40, 22 29, 33 22 C44 15, 50 23, 60 18 C70 13, 83 6, 100 8Z"
+                fill="url(#sealGrad)" stroke="none"/>
+              <!-- Wax highlight sheen -->
+              <path d="M100 8 C117 6, 130 13, 140 18 C150 23, 156 15, 167 22 C178 29, 184 40, 188 52 C192 64, 196 70, 193 82 C190 94, 195 104, 191 116 C187 128, 180 134, 174 144 C168 154, 173 163, 163 171 C153 179, 143 175, 131 181 C119 187, 113 195, 100 195 C87 195, 79 187, 67 181 C55 175, 47 179, 37 171 C27 163, 32 154, 26 144 C20 134, 13 128, 9 116 C5 104, 11 94, 7 82 C3 70, 9 64, 12 52 C16 40, 22 29, 33 22 C44 15, 50 23, 60 18 C70 13, 83 6, 100 8Z"
+                fill="url(#sealHighlight)" stroke="none"/>
+              <!-- Debossed rings -->
+              <circle cx="100" cy="101" r="54" fill="none" stroke="#1a1a1a" stroke-width="2" opacity="0.4"/>
+              <circle cx="100" cy="101" r="48" fill="none" stroke="#1a1a1a" stroke-width="1" opacity="0.25"/>
+              <!-- Monogram B debossed -->
+              <text x="100" y="114" text-anchor="middle" font-family="'Cinzel', serif" font-size="46" font-weight="700" fill="#0a0a0a" opacity="0.5">B</text>
+              <text x="100" y="114" text-anchor="middle" font-family="'Cinzel', serif" font-size="46" font-weight="700" fill="#999999" opacity="0.15">B</text>
+              <!-- Wax sheen highlight -->
+              <ellipse cx="78" cy="68" rx="24" ry="16" fill="white" opacity="0.07" transform="rotate(-25 78 68)"/>
+            </svg>
           </div>
 
-          <h1>You Are Summoned</h1>
-          <p class="estate-name">to Thornwood Manor</p>
+          <h1>You Have Been Summoned</h1>
+          <p class="subtitle">A matter of grave consequence demands your presence</p>
 
-          <div class="divider">
-            <span class="divider-line"></span>
-            <span class="divider-ornament">❧</span>
-            <span class="divider-line"></span>
-          </div>
+          <div class="divider"><span class="divider-ornament">&loz;</span></div>
 
-          <p class="prose">
-            A matter requiring your presence has arisen.<br>
-            If you have received this invitation, you hold a word<br>
-            that will reveal your purpose here.
+          <p class="prompt">
+            If this letter has found you, then you possess a word of passage.<br>
+            Speak it now, and the truth of your invitation shall be revealed.
           </p>
 
           <form id="code-form">
-            <label class="code-label">Enter your word of passage</label>
-            <input 
-              type="text" 
-              class="code-input" 
-              id="code-input" 
-              placeholder="Your code word"
-              autocomplete="off"
-              spellcheck="false"
-            >
-            <button type="submit" class="submit-btn">Enter the Manor</button>
-            <p class="error-message" id="error-message">
-              That word grants no passage here.
-            </p>
+            <div class="input-group">
+              <input
+                type="text"
+                class="code-input"
+                id="code-input"
+                placeholder="Enter your word of passage"
+                autocomplete="off"
+                spellcheck="false"
+              >
+            </div>
+            <button type="submit" class="submit-btn">Unseal</button>
+            <p class="error-msg" id="error-msg">That word holds no power here.</p>
           </form>
+
+          <p class="footer-warning">Do not speak of this to anyone. You have been chosen.</p>
         </div>
 
-        <!-- Reveal Page -->
-        <div id="reveal-page" class="reveal-page">
-          <div class="seal">
-            <span class="seal-letter" id="monogram">B</span>
+        <!-- ═══ PAGE 2 — CHARACTER REVEAL ═══ -->
+        <div id="reveal-page" class="reveal-stagger">
+
+          <p class="event-intro">
+            You have been invited to a murder mystery weekend at a private country estate.
+            A death has occurred under troubling circumstances, and a select few have been
+            summoned to attend. Each guest carries secrets. One among you may carry guilt.
+            You will be given a role to inhabit for the duration of the weekend&hairsp;&mdash;&hairsp;study it well.
+          </p>
+
+          <div class="divider"><span class="divider-ornament">&loz;</span></div>
+
+          <p class="reveal-header">Your Role in This Affair</p>
+
+          <p class="char-name" id="char-name"></p>
+          <p class="char-title" id="char-title"></p>
+
+          <p class="char-backstory" id="char-backstory"></p>
+
+          <div class="details-section">
+            <p class="details-heading">The Particulars</p>
+            <table class="details-table">
+              <tr>
+                <td>When</td>
+                <td>October 17&ndash;19, 2026</td>
+              </tr>
+              <tr>
+                <td>Arrival</td>
+                <td>Friday, 5:00 PM</td>
+              </tr>
+              <tr>
+                <td>Where</td>
+                <td>To be disclosed upon RSVP</td>
+              </tr>
+              <tr>
+                <td>Attire</td>
+                <td>Come dressed as your character demands. The year is 1926.</td>
+              </tr>
+            </table>
           </div>
 
-          <h1>Your Presence is Required</h1>
-          
-          <div class="divider">
-            <span class="divider-line"></span>
-            <span class="divider-ornament">❧</span>
-            <span class="divider-line"></span>
+          <div class="secrecy-notice">
+            <p>
+              Do not speak of this invitation to anyone. Do not attempt to identify the other guests. Do not investigate the address you will be given. Arrive alone. Further instructions will follow.
+            </p>
           </div>
 
-          <p class="character-name" id="character-name">Colonel Ashford Blackwood</p>
-          <p class="character-title" id="character-title">Retired Military Officer & Collector of Antiquities</p>
-
-          <div class="backstory" id="backstory">
-            A decorated veteran of the Great War, you returned from the Continent with a fortune in acquired antiquities and a reputation that precedes you into every drawing room. Your connections stretch from the highest circles of society to places polite company never mentions. Some say not all your medals were earned on the battlefield.
-          </div>
-
-          <div class="event-details">
-            <div class="detail-row">
-              <span class="detail-label">When</span>
-              <span class="detail-value">November 6th – 8th, 1926</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Where</span>
-              <span class="detail-value">Thornwood Manor (location upon confirmation)</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Attire</span>
-              <span class="detail-value">Evening formal; dress warmly for country air</span>
-            </div>
-          </div>
-
-          <div class="rsvp-section">
-            <p class="rsvp-deadline">Kindly respond by October 18th</p>
+          <div class="rsvp-section" id="rsvp-section">
+            <p>You are required to declare your intentions.</p>
             <div class="rsvp-buttons" id="rsvp-buttons">
-              <button class="rsvp-btn" onclick="rsvp('accept')">I Shall Attend</button>
-              <button class="rsvp-btn" onclick="rsvp('decline')">I Must Regret</button>
+              <button class="rsvp-btn accept" onclick="rsvp('accept')">I Shall Attend</button>
+              <button class="rsvp-btn decline" onclick="rsvp('decline')">I Must Decline</button>
             </div>
+            <p class="rsvp-sending" id="rsvp-sending">Dispatching your response&hellip;</p>
             <p class="rsvp-confirmed" id="rsvp-confirmed"></p>
+            <p class="rsvp-already" id="rsvp-already">
+              Your response has been recorded.<br>There is nothing more to be done.
+            </p>
           </div>
-
-          <p class="confidential">Your discretion in this matter is expected.</p>
         </div>
-      </div>
+
     </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Character database - customize with your guests
-      const characters = {
-        'blackwood': {
-          name: 'Colonel Ashford Blackwood',
-          title: 'Retired Military Officer & Collector of Antiquities',
-          backstory: 'A decorated veteran of the Great War, you returned from the Continent with a fortune in acquired antiquities and a reputation that precedes you into every drawing room. Your connections stretch from the highest circles of society to places polite company never mentions. Some say not all your medals were earned on the battlefield.',
-          initial: 'B'
-        },
-        'sinclair': {
-          name: 'Lady Vivienne Sinclair',
-          title: 'Widow & Society Hostess',
-          backstory: 'Your country house weekends are the stuff of legend—invitations more coveted than a seat at the King\'s table. Born into old money, you\'ve managed your inheritance with an acumen that surprises those who underestimate you. Your husband\'s sudden death last spring raised eyebrows in certain circles. The coroner ruled it an accident. Not everyone agrees.',
-          initial: 'S'
-        },
-        'crane': {
-          name: 'Dr. Mortimer Crane',
-          title: 'Physician & Research Fellow',
-          backstory: 'Your Harley Street practice serves only the most distinguished families, and your discretion has made you privy to secrets that could topple dynasties. Your interest in experimental treatments from Vienna has raised eyebrows at the Royal College. Some patients recover miraculously under your care. Others simply... don\'t recover at all.',
-          initial: 'C'
-        },
-        'ashworth': {
-          name: 'Lord Theodore Ashworth',
-          title: 'Industrialist & Railway Director',
-          backstory: 'You built your empire on coal and steel, surviving crashes that ruined lesser men. Your competitors whisper about your methods; your workers know better than to whisper at all. The recent troubles at your Yorkshire mills have made you enemies in unexpected places. There are those who say you\'d do anything to protect what you\'ve built.',
-          initial: 'A'
-        },
-        'fontaine': {
-          name: 'Mademoiselle Margaux Fontaine',
-          title: 'Concert Pianist & Former Actress',
-          backstory: 'Your performances at Covent Garden once had London at your feet, and your beauty graced every society page. The war sent you to Paris, where you did things for the Foreign Office that remain classified. Now you perform only at private gatherings, for audiences who understand your particular talents extend well beyond the keyboard.',
-          initial: 'F'
-        },
-        'pemberton': {
-          name: 'The Reverend Charles Pemberton',
-          title: 'Vicar & Keeper of Confessions',
-          backstory: 'Your parish includes the oldest families in the county. They trust you with their darkest confessions—the weight of what you know could end marriages, careers, perhaps even lives. Your faith demands silence. But everyone has their price, and someone has recently discovered yours.',
-          initial: 'P'
-        },
-        'charles-test': {
-          name: 'Kirsch You\'re a Pussy',
-          title: 'A Most Damning Proclamation',
-          backstory: 'Let the record show, for all who gather within these hallowed halls, that the one known as Kirsch is, by all accounts and in the estimation of every soul present — an unequivocal, thoroughgoing, and irredeemable pussy.',
-          initial: 'K'
-        },
-        'charles-test2': {
-          name: 'Jake Loves Male Genitals',
-          title: 'An Incontrovertible Truth',
-          backstory: 'It is whispered in every parlour from Mayfair to Marrakech, confided behind every closed door of every gentleman\'s club in the Empire, that the one called Jake harbours a deep, abiding, and wholly unshakeable love for male genitals. No denial shall suffice. The evidence is overwhelming.',
-          initial: 'J'
-        }
-      };
+    var FORMSPREE_URL = 'https://formspree.io/f/xbdagkzg';
+    var activeCharacter = null;
+    var activeCode = null;
 
-      const form = document.getElementById('code-form');
-      const codeInput = document.getElementById('code-input');
-      const errorMessage = document.getElementById('error-message');
-      const entryPage = document.getElementById('entry-page');
-      const revealPage = document.getElementById('reveal-page');
-
-      function showCharacter(character) {
-        document.getElementById('character-name').textContent = character.name;
-        document.getElementById('character-title').textContent = character.title;
-        document.getElementById('backstory').textContent = character.backstory;
-        document.getElementById('monogram').textContent = character.initial;
-        
-        entryPage.style.display = 'none';
-        revealPage.classList.add('active');
+    var CHARACTERS = {
+      hargrove: {
+        name: 'Reginald St. Claire',
+        title: 'Retired Barrister & Executor of the Blackmoor Estate',
+        backstory: 'A meticulous man of law who oversaw the Blackmoor family\u2019s affairs for three decades. When Lord Blackmoor died under suspicious circumstances last winter, Reginald was the last person seen leaving the manor. He claims he was merely delivering revised estate documents \u2014 but the revised will, which dramatically altered the line of inheritance, has since vanished. His hands are steady, his alibis airtight, and his knowledge of every family secret makes him either the most valuable witness or the most dangerous suspect.'
+      },
+      belmont: {
+        name: 'Lady Cordelia Ashworth',
+        title: 'Widow of the Deceased & Mistress of the Manor',
+        backstory: 'Cordelia married Lord Blackmoor twenty-two years ago in what society called the match of the decade. What society did not know was that the marriage had been loveless for at least fifteen of those years. She stands to inherit the estate in its entirety \u2014 unless the missing will surfaces. She has been seen burning correspondence in the east wing fireplace late at night, and the servants whisper that she dismissed the entire household staff the week before her husband\u2019s death.'
+      },
+      fenwick: {
+        name: 'Dr. Edmund Graves',
+        title: 'Personal Physician to the Late Lord Blackmoor',
+        backstory: 'The good doctor attended Lord Blackmoor through his final months, prescribing an increasingly unusual regimen of tonics and treatments. He signed the death certificate without hesitation \u2014 cause of death: heart failure. But his medical bag was found to contain compounds not typically carried by a country physician, and his personal debts to Lord Blackmoor were substantial. A dead creditor, after all, collects no debts.'
+      },
+      thornton: {
+        name: 'Margaux Delacroix',
+        title: 'Parisian Art Dealer & Rumored Former Lover',
+        backstory: 'Margaux arrived in England eighteen months ago to broker the sale of the Blackmoor art collection \u2014 a collection worth considerably more than the estate itself. Her relationship with Lord Blackmoor quickly exceeded the professional, a fact she made little effort to conceal. She was to receive a fifteen percent commission on the sale, but Lord Blackmoor cancelled the arrangement days before his death. She insists the cancellation was temporary. Her business partner in Paris insists otherwise.'
+      },
+      waverly: {
+        name: 'Captain Alastair Finch',
+        title: 'Decorated War Hero & Blackmoor\u2019s Business Partner',
+        backstory: 'The Captain and Lord Blackmoor served together and later invested jointly in a shipping venture that made them both rich \u2014 on paper. In private, the company was hemorrhaging money, and Blackmoor had recently threatened to dissolve the partnership and go public with the losses. Finch\u2019s military decorations hang in every room of his London flat, but his bank account tells a different story. He arrived at the manor the night before the death, supposedly uninvited.'
+      },
+      calloway: {
+        name: 'Iris Pemberton',
+        title: 'Niece & Sole Remaining Blood Heir',
+        backstory: 'At twenty-four, Iris is the only surviving blood relative of Lord Blackmoor. She was raised modestly by her mother \u2014 Blackmoor\u2019s estranged sister \u2014 and had little contact with her uncle until six months ago, when she appeared at the manor unannounced and was, to everyone\u2019s surprise, welcomed warmly. She was written into the original will for a modest sum, but the missing revised will allegedly named her as primary beneficiary. Some find this suspicious. Iris finds it perfectly natural.'
+      },
+      ashford: {
+        name: 'Father Cecil Wren',
+        title: 'Parish Priest & Unlikely Confidant',
+        backstory: 'Father Wren has tended the village parish for forty years and heard the confessions of every soul in the county \u2014 including, it is said, Lord Blackmoor\u2019s. He visited the manor twice in the final week, arriving after dark and departing before dawn. He will say only that he was providing spiritual comfort. But the housekeeper noted that on his second visit, he left carrying a leather satchel he did not arrive with. The church roof, in need of repair for a decade, was mysteriously restored the following month.'
+      },
+      nightingale: {
+        name: 'Vivienne Locke',
+        title: 'Lady\u2019s Maid Who Knows Too Much',
+        backstory: 'Vivienne has served Lady Ashworth for eleven years with quiet, watchful loyalty. She draws the baths, lays out the clothes, and has been present for every whispered conversation, every slammed door, every tear shed in private. She knows the contents of every letter Lady Ashworth has burned. She knows about the argument the night before Lord Blackmoor died. She knows where the spare key to his study is kept. Vivienne has never spoken out of turn. This makes several people in this room very nervous.'
+      },
+      redmond: {
+        name: 'Hugo Blackmoor',
+        title: 'Estranged Younger Brother, Recently Returned from Abroad',
+        backstory: 'Hugo left England eight years ago after a public and vicious falling out with his brother over their father\u2019s estate. He has spent the intervening years in varying states of disgrace across the Continent \u2014 gambling, drinking, and accumulating debts that would make even a Blackmoor blanch. He returned to England three weeks before his brother\u2019s death, claiming he wished to reconcile. The brothers were seen arguing violently in the garden the day before Lord Blackmoor died. Hugo inherits nothing under the original will. Under the missing one \u2014 no one is certain.'
+      },
+      stirling: {
+        name: 'Constance Fairfax',
+        title: 'Society Columnist & Uninvited Guest',
+        backstory: 'Miss Fairfax writes the most widely read gossip column in London, and she has been circling the Blackmoor story like a hawk since the funeral. She was not invited to the manor. She is here anyway. She claims to have received an anonymous tip that Lord Blackmoor\u2019s death was not what it appeared, and she intends to publish the truth \u2014 whatever it may be. She has already interviewed three of the guests without their knowledge. Her notebook contains details that have not been shared with the police.'
       }
+    };
 
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const code = codeInput.value.toLowerCase().trim();
-        
-        if (characters[code]) {
-          showCharacter(characters[code]);
-        } else {
-          errorMessage.classList.add('visible');
-          codeInput.value = '';
-          codeInput.focus();
+    // ── Password form ──
+    document.getElementById('code-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var code = document.getElementById('code-input').value.trim().toLowerCase();
+      var error = document.getElementById('error-msg');
+
+      if (CHARACTERS[code]) {
+        activeCharacter = CHARACTERS[code];
+        activeCode = code;
+
+        document.getElementById('char-name').textContent = activeCharacter.name;
+        document.getElementById('char-title').textContent = activeCharacter.title;
+        document.getElementById('char-backstory').textContent = activeCharacter.backstory;
+
+        document.getElementById('entry-page').style.display = 'none';
+        document.getElementById('reveal-page').style.display = 'block';
+
+        var rsvpKey = 'murder_mystery_rsvp_' + code;
+        if (localStorage.getItem(rsvpKey)) {
+          document.getElementById('rsvp-buttons').style.display = 'none';
+          document.getElementById('rsvp-already').style.display = 'block';
         }
-      });
-
-      codeInput.addEventListener('input', function() {
-        errorMessage.classList.remove('visible');
-      });
-
-      // Make rsvp function globally available
-      window.rsvp = function(response) {
-        const buttons = document.getElementById('rsvp-buttons');
-        const confirmed = document.getElementById('rsvp-confirmed');
-        
-        buttons.style.display = 'none';
-        
-        if (response === 'accept') {
-          confirmed.textContent = 'Your acceptance has been noted. A motor car shall collect you at the appointed hour.';
-        } else {
-          confirmed.textContent = 'A pity. Your absence will be... noted.';
-        }
-        
-        confirmed.style.display = 'block';
-        
-        // In production, send this to your backend
-        console.log('RSVP:', response);
-      };
+      } else {
+        error.style.display = 'block';
+        document.getElementById('code-input').value = '';
+        setTimeout(function() { error.style.display = 'none'; }, 3500);
+      }
     });
+
+    // ── RSVP handler ──
+    function rsvp(response) {
+      var buttons = document.getElementById('rsvp-buttons');
+      var sending = document.getElementById('rsvp-sending');
+      var confirmed = document.getElementById('rsvp-confirmed');
+
+      buttons.style.display = 'none';
+      sending.style.display = 'block';
+
+      fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          character_name: activeCharacter ? activeCharacter.name : 'Unknown',
+          code_word: activeCode,
+          response: response
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function() {
+        sending.style.display = 'none';
+        localStorage.setItem('murder_mystery_rsvp_' + activeCode, response);
+        confirmed.textContent = response === 'accept'
+          ? 'Very well. Your presence is expected. Further details will follow.'
+          : 'A pity. Your absence will be noted in the record.';
+        confirmed.style.display = 'block';
+      })
+      .catch(function() {
+        sending.style.display = 'none';
+        localStorage.setItem('murder_mystery_rsvp_' + activeCode, response);
+        confirmed.textContent = response === 'accept'
+          ? 'Very well. Your presence is expected. Further details will follow.'
+          : 'A pity. Your absence will be noted in the record.';
+        confirmed.style.display = 'block';
+      });
+    }
   </script>
 </body>
 </html>
